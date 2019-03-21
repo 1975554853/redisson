@@ -34,12 +34,12 @@ public class RedissonTestLock {
                     /**
                      * 测试testTryLock结果，每个IDE中线程，在TryLock的等待时间范围内，若获取到锁，返回true,则执行任务;若获取不到，则返回false，直接返回return;
                      */
-//                    testTryLock("redissonlocktest_testkey");
+                    testTryLock("redissonlocktest_testkey");
 
                     /**
                      * 测试testSyncro结果，IDE之间的线程互不影响，同一个IDE中的线程排队值执行，不同IDE之间的互补影响，可同时执行
                      */
-                    testSyncro("redissonlocktest_testkey");
+//                    testSyncro("redissonlocktest_testkey");
                 }
             }.start();
         }
@@ -82,7 +82,7 @@ public class RedissonTestLock {
 
            //由于在LockUtil.tryLock设置的等待时间是5s，所以这里如果休眠的小于5秒，这第二个线程能获取到锁，
             // 如果设置的大于5秒，则剩下的线程都不能获取锁。可以分别试试2s,和6s的情况
-            Thread.sleep(8000);//等待6秒
+            Thread.sleep(6000);//等待6秒
 
         } catch (Exception e) {
             System.out.println(getDate()+"线程锁 :" + Thread.currentThread().getId() + " exception :" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
@@ -92,7 +92,7 @@ public class RedissonTestLock {
                 LockUtil.unlock(preKey);
                 System.out.println(getDate()+Thread.currentThread().getName() + "释放。。。。");
             }catch (Exception e){
-                e.printStackTrace();
+                System.out.println("这不是你的锁，请珍重！！！");
             }
 
         }
